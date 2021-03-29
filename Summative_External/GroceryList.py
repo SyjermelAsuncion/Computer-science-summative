@@ -1,3 +1,15 @@
+#------------------------------------------------
+# Syjer Asuncion
+# Grocery List
+#------------------------------------------------
+
+"""
+This program reads the items from the (input file) grocery checklist
+and writes the items not bought to an output file.
+"""
+
+#-----------define functions--------------------
+
 """
 This program reads the items from the (input file) grocery checklist
 and writes the items not bought to an output file.
@@ -5,9 +17,9 @@ and writes the items not bought to an output file.
 def main():
     try:
         #Open input File and reads its content
-        groceryList = open('input.txt', mode='r')
-        contents= groceryList.read()
-        contents = contents.split("\n")               #items are appended into a list
+        with open('input.txt', mode='r') as groceryList:
+            contents= groceryList.read()
+            contents = contents.split("\n")               #items are appended into a list
 
         available= ["milk","chicken","apple","shampoo","mango","soap"]
         bought = []
@@ -19,11 +31,14 @@ def main():
                     bought.append(contents[j])
 
         #Creates an output file and write the items not bought
-        missing = open('output.txt',mode = 'w')
-        missing.write("Items not bought: "+"\n")
-        for item in contents:
-            if item not in bought:
-                missing.write(item+"\n")
+        with open('output.txt',mode = 'w') as missing:
+            missing.write("Items not bought: "+"\n")
+            for item in contents:
+                if item not in bought:
+                    missing.write(item+"\n")
+                    
+        print("The result is written in output.txt. Please open output.txt!")    
+               
 
         #Closes the files used
         groceryList.close()
@@ -32,4 +47,5 @@ def main():
     except:
         print("An error has occured. Exiting...")
 
+#---------------main code----------------
 main()
